@@ -91,3 +91,14 @@ test('renders all fields text when all fields are submitted.', async () => {
     expect(screen.getByTestId('emailDisplay').toBeVisible)
     expect(screen.getByTestId('messageDisplay').toBeVisible)
 });
+
+test('renders THREE error messages on submit EVEN IF user enters a value into Message', async () => {
+    render(<ContactForm />)
+    const message = screen.getByLabelText('Message')
+    userEvent.type(message, 'Jumbo Bumbo')
+    const submitBtn = screen.getByTestId('submit')
+    userEvent.click(submitBtn)
+    expect(screen.getByText(/error: firstName must have at least 5 characters./i))
+    expect(screen.getByText(/error: lastName is a required field./i))
+    expect(screen.getByText(/error: email must be a valid email address./i))
+});
