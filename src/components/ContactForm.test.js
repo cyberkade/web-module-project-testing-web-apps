@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen, waitFor } from '@testing-library/react';
+import {getByText, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ContactForm from './ContactForm';
 import DisplayComponent from './DisplayComponent';
@@ -102,3 +102,37 @@ test('renders THREE error messages on submit EVEN IF user enters a value into Me
     expect(screen.getByText(/error: lastName is a required field./i))
     expect(screen.getByText(/error: email must be a valid email address./i))
 });
+
+test('renders a message after user has already submitted the form without one', async () => {
+    render(<ContactForm />)
+        const firstName = screen.getByLabelText('First Name*')
+        userEvent.type(firstName, 'Kader')
+        const lastName = screen.getByLabelText('Last Name*')
+        userEvent.type(lastName, 'Griffith')
+        const email = screen.getByLabelText('Email*')
+        userEvent.type(email, 'jumbobumbo@gmail.com')
+        const submitBtn = screen.getByTestId('submit')
+        userEvent.click(submitBtn)
+        const message = screen.getByLabelText('Message')
+        userEvent.type(message, 'Jumbo Bumbo')
+        expect(screen.getByTestId('messageDisplay').toBeVisible)
+});
+
+// test('Render updated info after user has already submitted the form', async () => {
+//     render(<ContactForm />)
+//         const firstName = screen.getByLabelText('First Name*')
+//         userEvent.type(firstName, 'Kader')
+//         const lastName = screen.getByLabelText('Last Name*')
+//         userEvent.type(lastName, 'Griffith')
+//         const email = screen.getByLabelText('Email*')
+//         userEvent.type(email, 'jumbobumbo@gmail.com')
+//         const submitBtn = screen.getByTestId('submit')
+//         userEvent.click(submitBtn)
+//         expect(screen.getByTestId('firstnameDisplay').toBeVisible)
+//         expect(screen.getByTestId('lastnameDisplay').toBeVisible)
+//         expect(screen.getByTestId('emailDisplay').toBeVisible)
+
+//         const message = screen.getByLabelText('Message')
+//         userEvent.type(message, 'Jumbo Bumbo')
+//         expect(screen.getByTestId('messageDisplay').toBeVisible)
+// });
