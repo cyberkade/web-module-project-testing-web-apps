@@ -6,5 +6,5 @@
 * The user sees *Error: firstName must have at least 5 characters.* if the first name field doesn't have at least 5 characters
 * The user sees *Error: lastName is a required field.* if the last name field is empty on submit
 * The user sees *Error: email must be a valid email address.* if the email field is empty on submit
-* The user sees a reflection of their submitted information (no message if they didn't type one in)
-* The user sees their message reflected if they type information into that said field
+* The user sees a reflection of their submitted information (no message required to submit)
+* The user sees their message reflected if they type information into that message input
