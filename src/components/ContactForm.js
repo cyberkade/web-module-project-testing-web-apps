@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import DisplayComponent from './DisplayComponent';
+import useError from "./Hooks/useError";
+import useForm from "./Hooks/useForm";
 
 const formData = {
   firstName: "",
@@ -17,8 +19,8 @@ const errorData = {
 
 const ContactForm = () => {
   const [displayData, setDisplayData] = useState(false);
-  const [form, setForm] = useState(formData);
-  const [errors, setErrors] = useState(errorData);
+  const [form, setForm] = useForm(formData);
+  const [errors, setErrors] = useError(errorData);
 
   const errorHandling = (fieldName, fieldValue) => {
     if (fieldName === "firstName" && fieldValue.length < 5)
@@ -121,7 +123,7 @@ const ContactForm = () => {
 
         {displayData && <DisplayComponent form={form}/>}
 
-        <input type="submit" />
+        <input data-testid="submit" type="submit" />
       </form>
     </div>
   );
